@@ -1,10 +1,23 @@
-shop-interface
+# Shop Interface
 
-# Install Dependencies
+## Project setup
+
+```
 npm install
+```
 
-# Run Project
+### Compiles and hot-reloads for development
+
+```
 npm run serve
+```
 
-# Build Project
+### Compiles and minifies for production
+
+```
 npm run build
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
