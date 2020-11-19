@@ -1,10 +1,10 @@
-# shop-interface
+shop-interface
 
-Install Dependencies
-# npm install
+# Install Dependencies
+npm install
 
-Run Project
-# npm run serve
+# Run Project
+npm run serve
 
-Build Project
-# npm run build
+# Build Project
+npm run build
