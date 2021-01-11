@@ -35,7 +35,7 @@
                                     </span>
                                     <span slot="actions" slot-scope="id, record">
                                         <i class="fa fa-pencil text-orange" @click="serviceModal(record)"></i>
-                                        <i class="fa fa-trash text-orange ml-2" @click="deleteModal(record)"></i>
+                                        <!-- <i class="fa fa-trash text-orange ml-2" @click="deleteModal(record)"></i> -->
                                     </span>
                                 </a-table>
                             </div>
@@ -74,23 +74,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-6 mt-3">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 mt-3">
                         <div class="d-flex">
+                            <div>
+                                <img :src="bookingDetails.PhotoUrl" width="100" alt="">
+                            </div>
+                            <div class="ml-auto">
+                                <p class="pr-3 pt-1"><strong>Price</strong></p>
+                                <input type="text" class="form-control" v-model="bookingDetails.Price" required disabled style="width:150px" placeholder="8,500$">
+                            </div>
                             
-                            <p class="ml-auto pr-3 pt-1"><strong>Price</strong></p>
-                            <input type="text" class="form-control" v-model="bookingDetails.Price" required disabled style="width:150px" placeholder="8,500$">
                         </div>
                         
                         <textarea class="form-control mt-3" v-model="bookingDetails.Description" disabled placeholder="Description..." rows="6"></textarea>
                         
                     </div>
-                    <div class="col-12 col-md-6 mt-5 pt-4">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 mt-5 pt-4">
                         <div class="row">
                             <div class="col-12 mt-2" v-for="(message, index) in updateBookingDetails.Messages" :key="index">
-                                <span>{{getDate(message.Date)}}</span>
+                                <span>{{getDate(message.Date)}} ({{(getDateAndTime(message.Date).time)}})</span>
                                 <div :class="message.From == 1 ? 'from px-3 py-2 message-box' : 'you pink text-right px-3 py-2 message-box'">
                                     <p>{{message.Text}}</p>
                                 </div>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <form @submit.prevent="addMessage">
+                                    <b-input-group>
+                                        <input type="text" class="form-control" v-model="newMessage" required placeholder="Enter Your Message">
+                                        <button class="btn btn-primary send"><i class="fa fa-send"></i></button>
+                                    </b-input-group>
+                                </form>
                             </div>
                             <!-- <div class="col-12 text-right">
                                 <div class="you pink px-3 py-2 mt-1 message-box">
@@ -101,28 +114,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3 mt-3 mt-lg-0">
                         <p><strong>Requested Date: </strong> {{getDate(bookingDetails.CreateDate)}}</p>
                         <p><strong>Quantity: </strong> {{bookingDetails.ItemQuantity}}</p>
-                        <p><strong>Total: </strong> {{bookingDetails.Price ? bookingDetails.Price : 0}}$</p>
+                        <!-- <p><strong>Total: </strong> {{bookingDetails.Price ? bookingDetails.Price : 0}}$</p> -->
                         <strong>Completed: </strong> <a-switch :checked="bookingDetails.Completed == true" v-model="updateBookingDetails.Completed"/>
                     </div>
                     
-                    <div class="col-3">
-                        <button class="btn btn-block btn-secondary" @click="update">Save and Exit</button>
-                    </div>
-                    <div class="col-3">
-                        <button class="btn btn-block btn-secondary" @click="openServiceModal = !openServiceModal">Exit without save</button>
-                    </div>
-                    <div class="col-6">
-                        <form @submit.prevent="addMessage">
-                            <b-input-group>
-                                <input type="text" class="form-control" v-model="newMessage" required placeholder="Enter Your Message">
-                                <button class="btn btn-primary send"><i class="fa fa-send"></i></button>
-                            </b-input-group>
-                        </form>
-                        
-                    </div>
                 </div>
             </div>
         </b-modal>
@@ -174,12 +172,6 @@ export default {
             bookingToDelete: null,
             bookingDetails: null,
             updateBookingDetails: null,
-            // updateBookingDetails: {
-            //     Id: null,
-            //     id: null,
-            //     Completed: false,
-            //     Messages: []
-            // },
             newMessage: null,
             columns: [
                 {
@@ -203,6 +195,8 @@ export default {
                 {
                     title: 'Requested Date',
                     dataIndex: 'CreateDate',
+                    sorter: (a, b) => new Date(b.CreateDate) - new Date(a.CreateDate),
+                    sortDirections: ['descend', 'ascend'],
                     scopedSlots: { customRender: 'date' },
                 },
                 {
@@ -296,9 +290,14 @@ export default {
         },
         getBookings(val) {
             if(val) {
-                
-                this.fetchedBookings = val
-                console.log(this.fetchedBookings)
+                let bookingArray = []
+                val.forEach(item => {
+                    if(!item.Completed) {
+                        bookingArray.push(item)
+                    }
+                })
+                console.log(val)
+                this.fetchedBookings = bookingArray
                 this.loading = false
             }
         },

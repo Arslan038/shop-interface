@@ -5,7 +5,7 @@
                 <div class="col-2 col-md-1 logo">
                 </div>
                 <div class="col-3 col-md-3 text-center">
-                    <p class="pt-3">Terms of use</p>
+                    <p class="pt-3">Terms &amp; Conditions</p>
                 </div>
                 <div class="col-4 col-md-4 text-center pt-3">
                     <span class="pl-3">Francais</span>

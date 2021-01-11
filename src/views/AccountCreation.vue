@@ -49,7 +49,7 @@
                                                 value="yes"
                                                 unchecked-value="no"
                                                 >
-                                                I accept the conditions of use
+                                                I accept terms &amp; conditions
                                                 </b-form-checkbox>
                                             <button class="btn btn-secondary btn-block mt-4" type="submit">{{btnText}}</button>
                                         </div>

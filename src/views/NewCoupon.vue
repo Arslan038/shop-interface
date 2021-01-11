@@ -12,20 +12,6 @@
                 </div>
 
                 <div class="body-area mt-1 px-5">
-                    <div class="row">
-                        <div class="col-12 col-md-6 pt-2">
-                            <div v-for="(image, index) in couponImages" :key="index">
-           
-                                <div class="image text-center text-uppercase ml-1" v-bind:style="{ 'background-image': 'url(' + image.url + ')' }">
-                                    <div class="icon" @click="removeImage(image)">
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="image text-center" v-if="couponImages.length < 2" @click="pickFile"><strong>Pick Photos</strong></div>
-                            <input type="file" style="display:none" accept="image/*" ref="filePick" multiple @change="onFileSelected">
-                        </div>
-                    </div>
                     <form @submit.prevent>
                     <div class="row">
                         <div class="col-md-12 col-12 col-lg-6">
@@ -33,6 +19,21 @@
                                 <span><strong>Name:</strong></span>
                                 <input type="text" class="form-control" v-model="newCoupon.Title" required placeholder="Add a name">
                                 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div v-for="(image, index) in couponImages" :key="index">
+           
+                                            <div class="image text-center text-uppercase ml-1" v-bind:style="{ 'background-image': 'url(' + image.url + ')' }">
+                                                <div class="icon" @click="removeImage(image)">
+                                                    <i class="fa fa-times"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="image text-center" v-if="couponImages.length < 2" @click="pickFile"><strong>Pick Photos</strong></div>
+                                        <input type="file" style="display:none" accept="image/*" ref="filePick" multiple @change="onFileSelected">
+                                    </div>
+                                </div>
+
                                 <div class="discount mt-2">
                                     <div class="row">
                                         <div class="col-12 offset-12 mt-2">
@@ -108,7 +109,7 @@
                                         <div class="col-9">
                                             <div class="d-flex">
                                                 <h6 class="text-orange mt-1">List of related services <span v-if="serviceList">({{serviceList.length}})</span></h6>
-                                                <a class="btn btn-primary btn-sm text-white ml-2" @click="calculateCost">Add Service(s)</a>
+                                                <a class="btn btn-primary btn-sm text-white ml-2" @click="calculateCost">Confirm Service(s)</a>
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -117,24 +118,24 @@
                                     </div>
                                     <hr>
                                     <div class="row align-items-center group-list pr-4 mt-1" v-for="(service, index) in serviceList" :key="index">
-                                        <div class="col-1">
+                                        <div class="col-1" v-if="service.Status == 2">
                                             <b-form-checkbox @change="selectService($event, service)"></b-form-checkbox>
                                         </div>
                                         <div class="col-2">
                                             <img :src="service.PhotoUrl" width="100%" alt="">
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6" v-if="service.Status == 2">
                                             <p><strong class="text-orange">{{service.Name}}</strong></p>
                                             <p><strong>{{service.PriceUnit}}</strong></p>
                                         </div>
-                                        <div class="col-1">
+                                        <div class="col-1" v-if="service.Status == 2">
                                             <select class="" :id="service.Id+'s'" :disabled="findService(service)" v-model="service.quantity" required>
                                                 <option value="0">0</option>
                                                 <option v-for="i in 10" :key="i" :value="i">{{i}}</option>
                                             </select>
                                         </div>
-                                        <div class="col-1 ml-2">
-                                            <input type="number" :id="service.Id" min="0" max="100" value="50" required placeholder="20%" :disabled="findService(service)" v-model="service.discountRate">
+                                        <div class="col-1 ml-2" v-if="service.Status == 2">
+                                            <input type="number" class="input-border" :id="service.Id" min="0" max="100" value="50" required placeholder="20%" :disabled="findService(service)" v-model="service.discountRate">
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +283,7 @@ export default {
                         this.newCoupon.Cost += (10 * service.quantity)/50
                     } 
                 })
-                discount_rate = (this.newCoupon.SellingPrice / this.newCoupon.Value) * 100
+                discount_rate = 1 - ((this.newCoupon.SellingPrice / this.newCoupon.Value) * 100)
                 this.newCoupon.Cost = this.newCoupon.Cost.toFixed(2)
                 this.newCoupon.DiscountRate = discount_rate.toFixed(2)
                 this.updatedCost = true

@@ -10,7 +10,7 @@
                     <div class="row mx-5 pt-3">
                         <div class="col-12">
                             <h5 class="text-orange"><strong>Help and Contact</strong></h5>
-                            <p>Intro text :</p>
+                            <p>Help us improve this page.</p>
                         </div>
                     </div>
                     <form @submit.prevent="send">

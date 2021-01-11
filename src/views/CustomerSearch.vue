@@ -118,12 +118,6 @@
                         </select>
                     </div>
                     <div class="col-12 mt-3">
-                        <select class="form-control" v-model="advance.CategoryId">
-                            <option :value="null">Select Category</option>
-                            <option v-for="(category, index) in shopCategories" :key="index" :value="category.Id">{{category.Shortname.Strings.English != "" ? category.Shortname.Strings.English : category.Shortname.Strings.French}}</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mt-3">
                         <button class="btn btn-block btn-primary" type="submit">Search</button>
                     </div>
                     <div class="col-12 mt-3">
@@ -164,8 +158,7 @@ export default {
                 ObjectType: 20,
                 Pattern: null,
                 City: null,
-                UserGroupType: null,
-                CategoryId: null
+                UserGroupType: null
             },
             newRequest: {
                 id: null,

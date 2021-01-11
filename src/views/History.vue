@@ -10,7 +10,7 @@
                     <form @submit.prevent="send">
                         <div class="row mx-5 pt-3">
                             <div class="col-12">
-                                <h5 class="text-orange"><strong>History of payments</strong></h5>
+                                <h5 class="text-orange"><strong>My Payment History</strong></h5>
                                 <p>You want to know more about how you’ve used your money?  It is simple: select the period, we will send you a summary by email. </p>
                                 <p><strong>HOW MUCH DOES IT COSTS ME ?</strong></p>
                             </div>

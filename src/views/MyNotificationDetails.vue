@@ -55,7 +55,7 @@
                                                 <b-form-checkbox :checked="newNotification.UserGroupId == group.Id" @change="selectGroup($event, group.Id)"></b-form-checkbox>
                                             </div>
                                             <div class="col-2">
-                                                <img src="../assets/customer-search.png" width="100%" alt="">
+                                                <img :src="getGroupIcon(group.Id)" width="100%" alt="">
                                             </div>
                                             <div class="col-9">
                                                 <p>{{group.UserGroupName}}</p>
@@ -149,6 +149,12 @@ export default {
         ...mapActions(['fetchListOfCustomerGroups', 'fetchNotificationDetails', 'updateNotification', 'fetchNotifications']),
         sideBar(value) {
             this.isOpen = !this.isOpen
+        },
+        getGroupIcon(id) {
+            const group = this.getUserData().GroupTypes.find(g => g.Id == id)
+            if(group) {
+                return group.Parameter
+            }
         },
         findNotification(group) {
             let g = this.groups.find(gr => gr.Id == group.Id)

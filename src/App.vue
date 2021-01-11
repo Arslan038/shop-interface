@@ -116,4 +116,11 @@ input:focus, textarea:focus, select:focus {
 .ant-tag-checkable-checked {
     background-color: #E96928 !important;
 }
+.input-border {
+  border: 1px solid #ddd;
+  outline: none !important;
+}
+.input-border:focus {
+  outline: none !important;
+}
 </style>

@@ -103,7 +103,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h6 class="text-orange">List of groups</h6>
-                                            <a class="btn btn-primary btn-sm" @click="updateCost">Add Group(s)</a>
+                                            <a class="btn btn-primary btn-sm" @click="updateCost">Confirm Group(s)</a>
                                         </div>
                                         
                                         <hr>
@@ -112,7 +112,7 @@
                                                 <b-form-checkbox @change="selectGroup($event, group.Id)"></b-form-checkbox>
                                             </div>
                                             <div class="col-2">
-                                                <img src="../assets/customer-search.png" width="100%" alt="">
+                                                <img :src="getGroupIcon(group.Id)" width="100%" alt="">
                                             </div>
                                             <div class="col-9">
                                                 <p>{{group.UserGroupName}}</p>
@@ -222,6 +222,12 @@ export default {
         },
         pickFile() {
             this.$refs.filePick.click()
+        },
+        getGroupIcon(id) {
+            const group = this.getUserData().GroupTypes.find(g => g.Id == id)
+            if(group) {
+                return group.Parameter
+            }
         },
         async onFileSelected(e) {
             let file = e.target.files[0]

@@ -26,6 +26,18 @@ export default {
                 type: type
               })
         },
+        getDateAndTime(item) {
+            const dateFound = String(item)
+            if(dateFound.includes("T")) {
+                const date = dateFound.split("T")[0]
+                const time = dateFound.split("T")[1].split('.')[0]
+
+                return {
+                    date: date,
+                    time: time
+                }
+            }
+        },
         // UPLOAD IMAGE
         async uploadImage(payload) {
             let upload = null

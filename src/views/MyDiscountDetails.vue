@@ -104,7 +104,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h6 class="text-orange">List of groups</h6>
-                                            <a class="btn btn-primary btn-sm" @click="updateCost">Add Group(s)</a>
+                                            <a class="btn btn-primary btn-sm" @click="updateCost">Confirm Group(s)</a>
                                         </div>
                                         
                                         <hr>
@@ -113,7 +113,7 @@
                                                 <b-form-checkbox @change="selectGroup($event, group.Id)" :checked="findDiscount(group.Id)"></b-form-checkbox>
                                             </div>
                                             <div class="col-2">
-                                                <img src="../assets/customer-search.png" width="100%" alt="">
+                                                <img :src="getGroupIcon(group.Id)" width="100%" alt="">
                                             </div>
                                             <div class="col-9">
                                                 <p>{{group.UserGroupName}}</p>
@@ -223,6 +223,12 @@ export default {
         pickFile() {
             this.$refs.filePick.click()
         },
+        getGroupIcon(id) {
+            const group = this.getUserData().GroupTypes.find(g => g.Id == id)
+            if(group) {
+                return group.Parameter
+            }
+        },
         async onFileSelected(e) {
             let file = e.target.files[0]
             if(file) {
@@ -299,11 +305,12 @@ export default {
         },
 
         findDiscount(group) {
-            
             let d = this.newDiscount.Groups.find(g => g.Id == group)
             if(d) {
+                console.log("Exists Group....")
                 return true
             }
+            console.log("Group Not Exists")
             return false
         },
         updateCost() {
@@ -452,7 +459,9 @@ export default {
                     this.isDisabled = true
                     this.agree = 'yes'
                 }
-                console.log(this.newDiscount.Groups.length)
+                console.log("Groups...")
+                 console.log(this.newDiscount.Groups)
+                
                 if(this.newDiscount.PhotoUrl) {
                     this.image = this.newDiscount.PhotoUrl
                 }
@@ -473,12 +482,9 @@ export default {
                             this.tue = true
                         }
                         if(item == 3) {
-                            this.tue = true
-                        }
-                        if(item == 4) {
                             this.wed = true
                         }
-                        if(item == 5) {
+                        if(item == 4) {
                             this.thu = true
                         }
                         if(item == 5) {

@@ -51,13 +51,13 @@
                             <p><strong>Message</strong></p>
                             <textarea v-model="reqDetails.Message" class="form-control" disabled></textarea>
                         </div>
-                        <div class="col-6 mt-3" v-if="reqDetails.Decision != null">
+                        <div class="col-6 mt-3" v-if="reqDetails.MustMakeDecision">
                             <button class="btn btn-secondary" @click="accept">Accept</button>
                         </div>
-                        <div class="col-6 mt-3" v-if="reqDetails.Decision != null">
+                        <div class="col-6 mt-3 text-right" v-if="reqDetails.MustMakeDecision">
                             <button class="btn btn-secondary" @click="decline">Decline</button>
                         </div>
-                        <div class="col-6 mt-3" v-if="reqDetails.Decision == null">
+                        <div class="col-6 mt-3" v-if="reqDetails.MustMakeDecision == null">
                             <button class="btn btn-secondary" @click="understood">Understood</button>
                         </div>
                     </div>

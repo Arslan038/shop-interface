@@ -26,7 +26,7 @@
                                         <p>{{coupon.Title}}</p>
                                         <div class="row">
                                             <div class="col-6">
-                                                <p>{{coupon.Cost}} $</p>
+                                                <p>{{coupon.Cost}}</p>
                                             </div>
                                             <div class="col-6 text-right">
                                                 <p>{{coupon.DiscountRate}}%</p>

@@ -27,7 +27,7 @@
                                     <span slot="actions" slot-scope="id, record">
                                        
                                         <i class="fa fa-pencil text-orange" @click="edit(record)"></i>
-                                        <i class="fa fa-trash text-orange ml-2" @click="remove(record)"></i>
+                                        <!-- <i class="fa fa-trash text-orange ml-2" @click="remove(record)"></i> -->
                                     </span>
                                 </a-table>
                             </div>
@@ -68,13 +68,10 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <label><strong>Phone</strong></label>
-                                <input type="text" class="form-control" placeholder="Enter Phone" v-model="team.Phone" required>
+                                <input type="text" class="form-control" placeholder="Enter Phone" v-model="team.Phone">
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-secondary mt-3">Save and Exit</button>
-                            </div>
-                            <div class="col-6 text-right">
-                                <a class="btn btn-secondary mt-3" @click="openTeamModal = !openTeamModal">Exit without save</a>
+                                <button class="btn btn-secondary mt-3">Save</button>
                             </div>
                         </div>
                     </form>
@@ -93,7 +90,7 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <label><strong>Password</strong></label>
-                                <input type="password" class="form-control" v-model="editTeam.Password" placeholder="Enter Password" required>
+                                <input type="text" class="form-control" v-model="editTeam.Password" placeholder="Enter Password" required>
                             </div>
                             <div class="col-12 mt-3">
                                 <label><strong>First Name</strong></label>
@@ -101,13 +98,10 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <label><strong>Phone</strong></label>
-                                <input type="text" class="form-control" placeholder="Enter Phone" v-model="editTeam.Phone" required>
+                                <input type="text" class="form-control" placeholder="Enter Phone" v-model="editTeam.Phone">
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-secondary mt-3">Save and Exit</button>
-                            </div>
-                            <div class="col-6 text-right">
-                                <a class="btn btn-secondary mt-3" @click="openTeamEditModal = !openTeamEditModal">Exit without save</a>
+                                <button class="btn btn-secondary mt-3">Save</button>
                             </div>
                         </div>
                     </form>

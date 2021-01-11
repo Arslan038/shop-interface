@@ -263,6 +263,9 @@ const mutations = {
         }
         if(payload && payload != 0 && payload != 'error' && payload != null) {
             state.isLoggedIn = 'yes'
+            var now = new Date();
+            now.setTime(now.getTime() + 1800000);
+            payload.expiry = now.getTime()
             localStorage.setItem('manicardsShop', JSON.stringify(payload))
         }
     },
